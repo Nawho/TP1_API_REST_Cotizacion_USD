@@ -1,14 +1,11 @@
-import express from "express";
+import express from "express"
+import {dolar_router} from "./routes/dolar"
 
 const app: express.Application = express()
 const port: number = 38406
 
+app.use('/', dolar_router)
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
-})
-
-app.get('/', (req, res) => {
-    console.log('Connection on /')
-    res.status(204).send()
 })

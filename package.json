@@ -4,7 +4,9 @@
   "description": "Una API en Express y Typescript para obtener la cotiazación acutal del dólar, así como su valor histórico.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx nodemon ./src/index.ts",
+    "build": "npx tsc",
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "M4litt & Nawho",
