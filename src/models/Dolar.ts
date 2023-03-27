@@ -1,10 +1,12 @@
+import { RegistroDiario } from "./RegistroDiario"
+
 export class Dolar {
     private tipo: string // Blue, bolsa, turista, etc...
     private valor_compra: number
     private valor_venta: number
-    private historico: Array<JSON>
+    private historico: Array<RegistroDiario>
 
-    constructor(tipo: string, valor_compra: number, valor_venta: number, historico: Array<JSON>){
+    constructor(tipo: string, valor_compra: number, valor_venta: number, historico: Array<RegistroDiario>){
         this.tipo = tipo
         this.valor_compra = valor_compra
         this.valor_venta = valor_venta
@@ -35,10 +37,10 @@ export class Dolar {
         return
     }
 
-    public get_historico(): Array<JSON> {
+    public get_historico(): Array<RegistroDiario> {
         return this.historico
     }
-    public set_historico(historico: Array<JSON>): void {
+    public set_historico(historico: Array<RegistroDiario>): void {
         this.historico = historico
         return
     }
