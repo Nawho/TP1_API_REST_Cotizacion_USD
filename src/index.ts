@@ -1,7 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
-import {dolar_router} from "./routes/dolar"
-//import {MONGO_DB_CONNECTION_STRING} from "../config"
+import { dolar_router } from "./routes/dolar"
+require("dotenv").config()
 
 const app: express.Application = express()
 const port: number = 38406
@@ -14,4 +14,4 @@ app.listen(port, () => {
 })
 
 mongoose.set("strictQuery", false)
-mongoose.connect("mongodb+srv://eladmin:eladmin123@dev-test-cluster.8v1pofu.mongodb.net/divisas?retryWrites=true&w=majority")
+mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING!)
