@@ -1,7 +1,5 @@
 import express from "express"
-import { Dolar } from "./../models/Dolar"
-import { RegistroDiario } from "../models/RegistroDiario"
-import { DolarModel } from "../models/Model"
+import { DolarModel } from "../models/Dolar"
 
 //let dolares: Array<Dolar> = new Array<Dolar>
 //dolares.push(new Dolar("Blue", 250, 7000, new Array<RegistroDiario>))
@@ -9,17 +7,42 @@ import { DolarModel } from "../models/Model"
 export default {
     get_all_dollars: async (req: express.Request, res: express.Response) => {
         const dolars = await DolarModel.find()
-        res.status(200).send(dolars)
+
+        res.status(200).json({
+            data: dolars
+        })
     },
 
-    get_dollar: async (req: express.Request, res: express.Response) => {
-        console.log(req.body)
-        //const new_dolar = await DolarModel.create()
-        res.status(204).send()
+    get_dollar: async (req: express.Request, res: express.Response) => {        
+        const dolar_type = req.params.dolar_name
+        if (!dolar_type) {
+            return res.status(400).json({
+                errors: "Error: Dollar name not specififed."
+            })
+        }
+
+        const dolar = await DolarModel.findOne({ tipo: dolar_type })
+        res.status(200).json({
+            data: dolar
+        })
     },
 
-    post_dollar: () => {},
+    post_dollar: async (req: express.Request, res: express.Response) => {        
+        const data = req.body.nuevo_dolar
+        const fields = ["tipo", "valor_compra", "valor_venta"]
+
+        if (!data) {
+            fields.forEach((field) => {
+                if (!data[field]) return res.status(400).json({
+                    errors: `Error: Field ${field} not specified.`
+                })
+            })
+        }
+
+        res.status(200).json({
+            "Datos insertados": data
+        })
+    },
     patch_dollar: () => {},
-    put_dollar: () => {},
     delete_dollar: () => {},
 }
