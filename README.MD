@@ -2,10 +2,9 @@
 ## Grupo 14: Cotización de dólar (Tipo de dólar, Cotización x Fecha) (MongoDB)
 
 **Consigna:**
-+ Modelizar y crear una API RESTFull en Express.js utilizando Typescript el caso dado para cada grupo de trabajo. (El enunciado de cada grupo es acotado con la finalidad de evaluar las decisiones y consultas llevadas a cabo durante el transcurso del trabajo práctico.)
++ Modelizar y crear una API RESTfull en Express.js utilizando Typescript el caso dado para cada grupo de trabajo. (El enunciado de cada grupo es acotado con la finalidad de evaluar las decisiones y consultas llevadas a cabo durante el transcurso del trabajo práctico.)
 
-+ Se deben generar al menos 3 métodos personalizados (a elección) fuera de los correspondientes a la alta, baja
-y modificación de cada modelo.
++ Se deben generar al menos 3 métodos personalizados (a elección) fuera de los correspondientes a la alta, baja y modificación de cada modelo.
 
 + El código de la solución debe incluir la documentación de la API utilizando la herramienta Swagger.
 
