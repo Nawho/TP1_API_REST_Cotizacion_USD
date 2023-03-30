@@ -1,9 +1,6 @@
 import express from "express"
 import { DolarModel } from "../models/Dolar"
-import { has_valid_dollar_type } from "../utils/validators"
 
-//let dolares: Array<Dolar> = new Array<Dolar>
-//dolares.push(new Dolar("Blue", 250, 7000, new Array<RegistroDiario>))
 
 export default {
     get_all_dollars: async (req: express.Request, res: express.Response) => {
@@ -16,7 +13,12 @@ export default {
 
     get_dollar: async (req: express.Request, res: express.Response) => {        
         const dollar_type = req.params.tipo_dolar
-        if (!has_valid_dollar_type(dollar_type, res)) return
+        if (!dollar_type) {
+            return res.status(400).json({
+                "Message": "Error: No se especificó el tipo de dolar."
+            })
+        }
+        
 
         const dolar = await DolarModel.findOne({ tipo: dollar_type })
         res.status(200).json({
@@ -59,7 +61,11 @@ export default {
     patch_dollar: () => {},
     delete_dollar: () => async (req: express.Request, res: express.Response) => {        
         const dollar_type = req.body.tipo_dolar
-        if (!has_valid_dollar_type(dollar_type, res)) return
+        if (!dollar_type) {
+            return res.status(400).json({
+                "Message": "Error: No se especificó el tipo de dolar."
+            })
+        }
 
         DolarModel.deleteOne({ tipo: dollar_type})
         res.status(200).json({
