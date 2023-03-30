@@ -58,11 +58,41 @@ export default {
             "Message": "Nuevo tipo de dolar creado correctamente."
         })
     },
-    patch_dollar: () => {},
+    patch_dollar: async (req: express.Request, res: express.Response) => {
+        const target = await DolarModel.findOne({tipo: req.body.target})
+        if(!target) {
+            return res.status(404).send()
+        }
+
+        delete req.body["target"]
+        await DolarModel.updateOne({_id: target._id}, { $set: req.body })
+        
+        res.status(204).send()
+    },
+
+    save_values: async (req: express.Request, res: express.Response) => {
+        const target = await DolarModel.findOne({tipo: req.params.dolar_name})
+        if(!target) {
+            return res.status(404).send()
+        }
+
+        await DolarModel.updateOne({_id: target._id}, {
+            $push: {
+                historico: {
+                    fecha: new Date(),
+                    valor_compra: target.valor_compra,
+                    valor_venta: target.valor_venta
+                }
+            }
+        })
+
+        res.status(204).send()
+    },
+
     delete_dollar: () => async (req: express.Request, res: express.Response) => {        
         const dollar_type = req.body.tipo_dolar
         if (!dollar_type) {
-            return res.status(400).json({
+            return res.status(404).json({
                 "Message": "Error: No se especificó el tipo de dolar."
             })
         }

@@ -10,4 +10,5 @@ dolar_router
     .delete('/', dolar_controller.delete_dollar)
 
     .get('/:dolar_name', dolar_controller.get_dollar)
+    .patch('/:dolar_name/save_values', dolar_controller.save_values)
     
