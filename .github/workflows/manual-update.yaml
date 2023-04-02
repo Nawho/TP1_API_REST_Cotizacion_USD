@@ -28,4 +28,4 @@ jobs:
       - name: Run cron
         env:
           MONGO_DB_CONNECTION_STRING: ${{ secrets.MONGO_DB_CONNECTION_STRING }}
-        run: node -r dotenv/config ./dist/index.js
+        run: node -r dotenv/config ./dist/cron-updater/index.js
