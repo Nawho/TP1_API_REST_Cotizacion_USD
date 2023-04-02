@@ -123,7 +123,13 @@ async function updateDollarsInDB() {
 }
 
 async function scrapePage() {
-    const browser = await launch();
+    const browser = await launch({
+        headless: true,
+        args: [
+            `--no-sandbox`,
+            `--disable-setuid-sandbox`
+        ]
+    });
     const page = await browser.newPage();
 
     await page.goto('https://www.ambito.com/contenidos/dolar.html', {
