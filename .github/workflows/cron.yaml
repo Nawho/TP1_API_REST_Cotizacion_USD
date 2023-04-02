@@ -1,4 +1,4 @@
-name: Dolar prize updater
+name: Dolar prize updater cron job
 
 on:
   schedule:
@@ -6,17 +6,28 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.5.2
         with:
-          node-version: '19.x'
+          node-version: '16.x'
 
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Install dependencies
+      - name: Download and extract Chromium
+        run: |
+          Invoke-WebRequest "https://github.com/macchrome/chromium/releases/download/v107.0.5282.0-r1043032-Win64/chromium-107.0.5282.0-1_sync_Win64.7z" -OutFile "chromium.7z"
+          7z x chromium.7z -o"%ProgramFiles(x86)%\Chromium" -y
+          
+      - name: Add Chromium to path
+        run: |
+          $chromiumPath = "${env:ProgramFiles(x86)}\Chromium"
+          $env:Path += ";$chromiumPath"
+          Write-Host "Chromium path: $chromiumPath"
+          
+      - name: Install npm dependencies
         run: npm install
         
       - name: Build project
@@ -25,4 +36,4 @@ jobs:
       - name: Run cron
         env:
           MONGO_DB_CONNECTION_STRING: ${{ secrets.MONGO_DB_CONNECTION_STRING }}
-        run: node -r dotenv/config ./dist/index.js
+        run: node -r dotenv/config ./dist/cron-updater/index.js
