@@ -8,11 +8,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.2
+        with:
+          node-version: '19.x'
+
       - name: Checkout code
         uses: actions/checkout@v2
+        
       - name: Install dependencies
         run: npm install --production
+        
       - name: Build project
         run: npx tsc
-      - name: Run script
-        run: node ./dist/cron-updater/index.js
+      
+      - name: Run cron
+        env:
+          MONGO_DB_CONNECTION_STRING: ${{ secrets.MONGO_DB_CONNECTION_STRING }}
+        run: node -r dotenv/config ./dist/index.js
