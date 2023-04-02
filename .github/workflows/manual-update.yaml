@@ -15,12 +15,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Download Chrome or Chromium
+      - name: Download Chromium
         run: |
-          Invoke-WebRequest "https://dl.google.com/chrome/win/stable/GGRO/googlechrome_standalone_enterprise_94.0.4606.81.msi" -OutFile "chrome.msi"
-          msiexec /i chrome.msi /qn /norestart
+          $url = 'https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html?prefix=Win_x64/887934/'
+          $response = Invoke-WebRequest $url
+          $pattern = 'https://[^\s]*\.zip'
+          $match = [regex]::Match($response.Content, $pattern)
+          $chromeUrl = $match.Value
+          Invoke-WebRequest $chromeUrl -OutFile chrome-win.zip
+          Expand-Archive -Path chrome-win.zip -DestinationPath "${env:ProgramFiles(x86)}\Google\Chrome\Application"
           
-      - name: Add Chrome or Chromium to path
+      - name: Add Chromium to path
         run: |
           $chromePath = "${env:ProgramFiles(x86)}\Google\Chrome\Application"
           $env:Path += ";$chromePath"
