@@ -15,21 +15,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Download Chromium
+      - name: Download and extract Chromium
         run: |
-          $url = 'https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html?prefix=Win_x64/887934/'
-          $response = Invoke-WebRequest $url
-          $pattern = 'https://[^\s]*\.zip'
-          $match = [regex]::Match($response.Content, $pattern)
-          $chromeUrl = $match.Value
-          Invoke-WebRequest $chromeUrl -OutFile chrome-win.zip
-          Expand-Archive -Path chrome-win.zip -DestinationPath "${env:ProgramFiles(x86)}\Google\Chrome\Application"
+          Invoke-WebRequest "https://github.com/macchrome/chromium/releases/download/v107.0.5282.0-r1043032-Win64/chromium-107.0.5282.0-1_sync_Win64.7z" -OutFile "chromium.7z"
+          7z x chromium.7z -o"%ProgramFiles(x86)%\Chromium" -y
           
       - name: Add Chromium to path
         run: |
-          $chromePath = "${env:ProgramFiles(x86)}\Google\Chrome\Application"
-          $env:Path += ";$chromePath"
-          Write-Host "Chrome path: $chromePath"
+          $chromiumPath = "${env:ProgramFiles(x86)}\Chromium"
+          $env:Path += ";$chromiumPath"
+          Write-Host "Chromium path: $chromiumPath"
           
       - name: Install npm dependencies
         run: npm install
