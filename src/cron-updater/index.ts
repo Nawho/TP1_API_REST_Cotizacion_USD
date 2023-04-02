@@ -60,7 +60,6 @@ const dolarData: { [key: string]: DolarComprableYVendible | DolarComprable } = {
 async function insertScrapedValue(page: Page, dollar: DolarComprable | DolarComprableYVendible, xPath: string, dollarKey: string, isPrice: boolean) {
     const handler = await page.waitForXPath(xPath, { timeout: XPATH_TIMEOUT })
     const value = await handler?.evaluate(e => e.textContent)
-    console.log(handler, value)
     if (value) {
         //@ts-ignore
         if (isPrice) dollar[dollarKey] = parseFloat(value.replace(",", "."))
@@ -118,8 +117,6 @@ async function updateDollarsInDB() {
 
         await DolarModel.updateOne({ tipo: dolar.fullName }, dbData)
     }
-
-    return 1
 }
 
 async function scrapePage() {
@@ -144,9 +141,8 @@ async function scrapePage() {
     }
 
     await Promise.allSettled(promises)
-
     await updateDollarsInDB()
-    return 1
+    process.exit(0)
 }
 
 
