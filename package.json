@@ -1,12 +1,12 @@
 {
   "name": "tp1-api-rest-cotizacion-usd",
   "version": "1.0.0",
-  "description": "Una API en Express y Typescript para obtener la cotiazación acutal del dólar, así como su valor histórico.",
+  "description": "Una API para obtener la cotiazación acutal de los 12 dólares en Argentina, así como su valor histórico y un cron job que actualizará la base de datos cada 1h.",
   "main": "index.js",
   "scripts": {
-    "test": "npx nodemon ./src/index.ts",
-    "build": "npx tsc",
-    "start": "node ./dist/index.js"
+    "api": "npx nodemon ./src/api/index.ts",
+    "cron": "npx nodemon ./src/cron-updater/index.ts",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "M4litt & Nawho",
@@ -15,9 +15,11 @@
     "@typegoose/typegoose": "^11.0.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^7.0.3"
+    "mongoose": "^7.0.3",
+    "puppeteer": "^19.8.2"
   },
   "devDependencies": {
+    "@types/puppeteer": "^7.0.4",
     "@types/express": "^4.17.17",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.15.11",

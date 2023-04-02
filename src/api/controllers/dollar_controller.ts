@@ -1,5 +1,5 @@
 import express from "express"
-import { DolarModel } from "../models/Dolar"
+import { DolarModel } from "../../models/Dolar"
 
 
 export default {
@@ -11,14 +11,14 @@ export default {
         })
     },
 
-    get_dollar: async (req: express.Request, res: express.Response) => {        
+    get_dollar: async (req: express.Request, res: express.Response) => {
         const dollar_type = req.params.tipo_dolar
         if (!dollar_type) {
             return res.status(400).json({
                 "Message": "Error: No se especificó el tipo de dolar."
             })
         }
-        
+
 
         const dolar = await DolarModel.findOne({ tipo: dollar_type })
         res.status(200).json({
@@ -26,7 +26,7 @@ export default {
         })
     },
 
-    post_dollar: async (req: express.Request, res: express.Response) => {        
+    post_dollar: async (req: express.Request, res: express.Response) => {
         const new_dollar_data = req.body.nuevo_dolar
         const fields = ["tipo", "valor_compra", "valor_venta"]
 
@@ -41,7 +41,7 @@ export default {
                 return res.status(400).json({
                     "Message": `Error: Campo ${field} no especificado.`
                 })
-            } 
+            }
         })
 
         const existingDolar = await DolarModel.findOne({ tipo: new_dollar_data.tipo })
@@ -58,25 +58,26 @@ export default {
             "Message": "Nuevo tipo de dolar creado correctamente."
         })
     },
+
     patch_dollar: async (req: express.Request, res: express.Response) => {
-        const target = await DolarModel.findOne({tipo: req.body.target})
-        if(!target) {
+        const target = await DolarModel.findOne({ tipo: req.body.target })
+        if (!target) {
             return res.status(404).send()
         }
 
         delete req.body["target"]
-        await DolarModel.updateOne({_id: target._id}, { $set: req.body })
-        
+        await DolarModel.updateOne({ _id: target._id }, { $set: req.body })
+
         res.status(204).send()
     },
 
     save_values: async (req: express.Request, res: express.Response) => {
-        const target = await DolarModel.findOne({tipo: req.params.dolar_name})
-        if(!target) {
+        const target = await DolarModel.findOne({ tipo: req.params.dolar_name })
+        if (!target) {
             return res.status(404).send()
         }
 
-        await DolarModel.updateOne({_id: target._id}, {
+        await DolarModel.updateOne({ _id: target._id }, {
             $push: {
                 historico: {
                     fecha: new Date(),
@@ -89,7 +90,7 @@ export default {
         res.status(204).send()
     },
 
-    delete_dollar: () => async (req: express.Request, res: express.Response) => {        
+    delete_dollar: () => async (req: express.Request, res: express.Response) => {
         const dollar_type = req.body.tipo_dolar
         if (!dollar_type) {
             return res.status(404).json({
@@ -97,7 +98,7 @@ export default {
             })
         }
 
-        DolarModel.deleteOne({ tipo: dollar_type})
+        DolarModel.deleteOne({ tipo: dollar_type })
         res.status(200).json({
             "Message": "Tipo de dolar eliminado correctamente."
         })

@@ -1,4 +1,4 @@
-import { prop, getModelForClass, modelOptions} from "@typegoose/typegoose"
+import { prop, getModelForClass, modelOptions } from "@typegoose/typegoose"
 import { RegistroDiario } from "./RegistroDiario"
 
 @modelOptions({
@@ -7,12 +7,18 @@ import { RegistroDiario } from "./RegistroDiario"
 class Dolar {
     @prop({ required: true })
     tipo!: string // Blue, bolsa, turista, etc...
-    
+
     @prop()
     valor_compra?: number
 
     @prop()
     valor_venta?: number
+
+    @prop()
+    ult_acutalizacion?: string
+
+    @prop()
+    db_ult_actualizacion?: string
 
     @prop()
     historico?: RegistroDiario[]
