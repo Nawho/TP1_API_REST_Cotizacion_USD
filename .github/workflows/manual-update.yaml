@@ -1,8 +1,11 @@
-name: Dolar prize updater
+name: Manual DB update
 
 on:
-  schedule:
-    - cron: '0 * * * *'
+  workflow_dispatch:
+    inputs:
+      my_input:
+        description: 'An example input'
+        required: false
 
 jobs:
   build:
