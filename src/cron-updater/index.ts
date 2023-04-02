@@ -127,7 +127,7 @@ async function scrapePage() {
         waitUntil: "domcontentloaded",
     });
 
-    await setTimeout(5000) //wait for dollar prices to load
+    await setTimeout(15000) //wait for dollar prices to load
 
     const promises: Promise<void>[] = []
     for (let dolar of Object.values(dolarData)) {
@@ -136,7 +136,8 @@ async function scrapePage() {
 
     await Promise.allSettled(promises)
 
-    updateDollarsInDB()
+    await updateDollarsInDB()
+    return 1
 }
 
 
