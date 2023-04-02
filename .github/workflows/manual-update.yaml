@@ -2,10 +2,6 @@ name: Manual DB update
 
 on:
   workflow_dispatch:
-    inputs:
-      my_input:
-        description: 'An example input'
-        required: false
 
 jobs:
   build:
