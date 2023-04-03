@@ -18,7 +18,7 @@ class Dolar {
     valor_venta?: number
 
     @prop()
-    ult_acutalizacion?: string
+    ult_actualizacion?: string
 
     @prop()
     db_ult_actualizacion!: string

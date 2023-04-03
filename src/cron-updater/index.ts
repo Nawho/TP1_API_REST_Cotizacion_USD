@@ -106,7 +106,7 @@ async function updateDollarsInDB() {
         const dbData = {
             "nombre_completo": dolar.fullName,
             "valor_compra": dolar.compra.toString(),
-            "ult_acualizacion": dolar.lastUpdated,
+            "ult_actualizacion": dolar.lastUpdated,
             "db_ult_actualizacion": new Date().toISOString().slice(0, 19).replace('T', ' ')
         }
 
