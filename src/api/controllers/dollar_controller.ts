@@ -12,7 +12,7 @@ export default {
     },
 
     get_dollar: async (req: express.Request, res: express.Response) => {
-        const dollar_type = req.params.tipo_dolar
+        const dollar_type = req.params.tipo
         if (!dollar_type) {
             return res.status(400).json({
                 "Message": "Error: No se especificó el tipo de dolar."
@@ -84,7 +84,7 @@ export default {
     },
 
     save_values: async (req: express.Request, res: express.Response) => {
-        const target = await DolarModel.findOne({ tipo: req.params.dolar_name })
+        const target = await DolarModel.findOne({ tipo: req.params.tipo })
         if (!target) {
             return res.status(404).send(`${req.body.target} no encontrado`)
         }
@@ -99,7 +99,7 @@ export default {
             }
         })
 
-        res.status(200).send(`Valor actual de ${req.body.target} guardado en el historial.`)
+        res.status(200).send(`Valor actual de ${req.params.tipo} guardado en el historial.`)
     },
 
     delete_dollar: async (req: express.Request, res: express.Response) => {
