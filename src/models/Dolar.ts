@@ -9,6 +9,9 @@ class Dolar {
     tipo!: string // Blue, bolsa, turista, etc...
 
     @prop()
+    nombre_completo!: string
+
+    @prop()
     valor_compra?: number
 
     @prop()
@@ -18,7 +21,7 @@ class Dolar {
     ult_acutalizacion?: string
 
     @prop()
-    db_ult_actualizacion?: string
+    db_ult_actualizacion!: string
 
     @prop()
     historico?: RegistroDiario[]
