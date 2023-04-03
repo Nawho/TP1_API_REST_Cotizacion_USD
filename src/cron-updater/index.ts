@@ -43,18 +43,18 @@ const DOLAR_QATAR_UPDATED = "/html/body/main/div/div[1]/div[1]/div/div[2]/div[2]
 const XPATH_TIMEOUT = 10000
 
 const dolarData: { [key: string]: DolarComprableYVendible | DolarComprable } = {
-    "Dólar Oficial": new DolarComprableYVendible("Dólar Oficial", DOLAR_OFICIAL_UPDATED, DOLAR_OFICIAL_COMPRA, DOLAR_OFICIAL_VENTA),
-    "Dólar Blue": new DolarComprableYVendible("Dólar Blue", DOLAR_BLUE_UPDATED, DOLAR_BLUE_COMPRA, DOLAR_BLUE_VENTA),
-    "Dólar Banco Nación": new DolarComprableYVendible("Dólar Banco Nación", DOLAR_BANCO_NACION_UPDATED, DOLAR_BANCO_NACION_COMPRA, DOLAR_BANCO_NACION_VENTA),
-    "Dólar Mayorista": new DolarComprableYVendible("Dólar Mayorista", DOLAR_MAYORISTA_UPDATED, DOLAR_MAYORISTA_COMPRA, DOLAR_MAYORISTA_VENTA),
-    "Dólar Futuro": new DolarComprableYVendible("Dólar Futuro", DOLAR_FUTURO_UPDATED, DOLAR_FUTURO_COMPRA, DOLAR_FUTURO_VENTA),
-    "Dólar Turista": new DolarComprable("Dólar Turista", DOLAR_TURISTA_UPDATED, DOLAR_TURISTA),
-    "Dólar Contado con Liquidación": new DolarComprable("Dólar Contado con Liquidación", DOLAR_CCL_UPDATED, DOLAR_CCL),
-    "Dólar Lujo": new DolarComprable("Dólar Lujo", DOLAR_LUJO_UPDATED, DOLAR_LUJO),
-    "Dólar Coldplay": new DolarComprable("Dólar Coldplay", DOLAR_COLDPLAY_UPDATED, DOLAR_COLDPLAY),
-    "Dólar MEP": new DolarComprable("Dólar MEP", DOLAR_MEP_UPDATED, DOLAR_MEP),
-    "Dólar Ahorro": new DolarComprable("Dólar Ahorro", DOLAR_AHORRO_UPDATED, DOLAR_AHORRO),
-    "Dólar Qatar": new DolarComprable("Dólar Qatar", DOLAR_QATAR_UPDATED, DOLAR_QATAR),
+    "Dólar Oficial": new DolarComprableYVendible("oficial", "Dólar Oficial", DOLAR_OFICIAL_UPDATED, DOLAR_OFICIAL_COMPRA, DOLAR_OFICIAL_VENTA),
+    "Dólar Blue": new DolarComprableYVendible("blue", "Dólar Blue", DOLAR_BLUE_UPDATED, DOLAR_BLUE_COMPRA, DOLAR_BLUE_VENTA),
+    "Dólar Banco Nación": new DolarComprableYVendible("bna", "Dólar Banco Nación", DOLAR_BANCO_NACION_UPDATED, DOLAR_BANCO_NACION_COMPRA, DOLAR_BANCO_NACION_VENTA),
+    "Dólar Mayorista": new DolarComprableYVendible("mayorista", "Dólar Mayorista", DOLAR_MAYORISTA_UPDATED, DOLAR_MAYORISTA_COMPRA, DOLAR_MAYORISTA_VENTA),
+    "Dólar Futuro": new DolarComprableYVendible("futuro", "Dólar Futuro", DOLAR_FUTURO_UPDATED, DOLAR_FUTURO_COMPRA, DOLAR_FUTURO_VENTA),
+    "Dólar Turista": new DolarComprable("turista", "Dólar Turista", DOLAR_TURISTA_UPDATED, DOLAR_TURISTA),
+    "Dólar Contado con Liquidación": new DolarComprable("ccl", "Dólar Contado con Liquidación", DOLAR_CCL_UPDATED, DOLAR_CCL),
+    "Dólar Lujo": new DolarComprable("lujo", "Dólar Lujo", DOLAR_LUJO_UPDATED, DOLAR_LUJO),
+    "Dólar Coldplay": new DolarComprable("coldplay", "Dólar Coldplay", DOLAR_COLDPLAY_UPDATED, DOLAR_COLDPLAY),
+    "Dólar MEP": new DolarComprable("mep", "Dólar MEP", DOLAR_MEP_UPDATED, DOLAR_MEP),
+    "Dólar Ahorro": new DolarComprable("ahorro", "Dólar Ahorro", DOLAR_AHORRO_UPDATED, DOLAR_AHORRO),
+    "Dólar Qatar": new DolarComprable("qatar", "Dólar Qatar", DOLAR_QATAR_UPDATED, DOLAR_QATAR),
 }
 
 async function insertScrapedValue(page: Page, dollar: DolarComprable | DolarComprableYVendible, xPath: string, dollarKey: string, isPrice: boolean) {
@@ -104,6 +104,7 @@ async function updateDollarsInDB() {
         if (dolar.compra === -1 || dolar.lastUpdated === "") { console.log("Incomplete data"); continue }
 
         const dbData = {
+            "nombre_completo": dolar.fullName,
             "valor_compra": dolar.compra.toString(),
             "ult_acualizacion": dolar.lastUpdated,
             "db_ult_actualizacion": new Date().toISOString().slice(0, 19).replace('T', ' ')
@@ -115,7 +116,7 @@ async function updateDollarsInDB() {
             dbData["valor_venta"] = dolar.venta.toString()
         }
 
-        await DolarModel.updateOne({ tipo: dolar.fullName }, dbData)
+        await DolarModel.updateOne({ tipo: dolar.tipo }, dbData)
     }
 }
 

@@ -1,11 +1,13 @@
 export class DolarComprable {
+    public tipo: string
     public fullName: string
     public xpathLastUpdated: string
     public xpathCompra: string
     public lastUpdated: string
     public compra: number
 
-    constructor(dolarName: string, xpathLastUpdated: string, xpathCompra: string) {
+    constructor(tipo: string, dolarName: string, xpathLastUpdated: string, xpathCompra: string) {
+        this.tipo = tipo
         this.fullName = dolarName
         this.xpathCompra = xpathCompra
         this.xpathLastUpdated = xpathLastUpdated
@@ -22,8 +24,8 @@ export class DolarComprableYVendible extends DolarComprable {
     public xpathVenta: string
     public venta: number
 
-    constructor(dolarName: string, xpathLastUpdated: string, xpathCompra: string, xpathVenta: string) {
-        super(dolarName, xpathLastUpdated, xpathCompra)
+    constructor(tipo: string, dolarName: string, xpathLastUpdated: string, xpathCompra: string, xpathVenta: string) {
+        super(tipo, dolarName, xpathLastUpdated, xpathCompra)
         this.xpathVenta = xpathVenta
         this.venta = -1
     }
