@@ -116,12 +116,8 @@ async function updateDollarsInDB() {
             dbData["valor_venta"] = dolar.venta.toString()
         }
 
-        const newDollar = await DolarModel.create({
-            tipo: dolar.tipo,
-            ...dbData
-        })
-        await newDollar.save()
-        //await DolarModel.updateOne({ $set: {tipo: dolar.tipo }}, dbData)
+
+        await DolarModel.updateOne({ tipo: dolar.tipo }, dbData)
     }
 }
 
