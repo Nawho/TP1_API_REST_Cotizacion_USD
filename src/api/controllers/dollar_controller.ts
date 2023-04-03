@@ -62,19 +62,31 @@ export default {
     patch_dollar: async (req: express.Request, res: express.Response) => {
         const target = await DolarModel.findOne({ tipo: req.body.target })
         if (!target) {
-            return res.status(404).send()
+            return res.status(404).send(`${req.body.target} no encontrado`)
         }
 
         delete req.body["target"]
         await DolarModel.updateOne({ _id: target._id }, { $set: req.body })
 
-        res.status(204).send()
+        res.status(200).send(req.body)
+    },
+
+    put_dollar: async (req: express.Request, res: express.Response) => {
+        const target = await DolarModel.findOne({ tipo: req.body.target })
+        if (!target) {
+            return res.status(404).send(`${req.body.target} no encontrado`)
+        }
+
+        delete req.body["target"]
+        await DolarModel.replaceOne({ _id: target._id }, req.body )
+
+        res.status(200).send(req.body)
     },
 
     save_values: async (req: express.Request, res: express.Response) => {
         const target = await DolarModel.findOne({ tipo: req.params.dolar_name })
         if (!target) {
-            return res.status(404).send()
+            return res.status(404).send(`${req.body.target} no encontrado`)
         }
 
         await DolarModel.updateOne({ _id: target._id }, {
@@ -87,10 +99,10 @@ export default {
             }
         })
 
-        res.status(204).send()
+        res.status(200).send(`Valor actual de ${req.body.target} guardado en el historial.`)
     },
 
-    delete_dollar: () => async (req: express.Request, res: express.Response) => {
+    delete_dollar: async (req: express.Request, res: express.Response) => {
         const dollar_type = req.body.tipo_dolar
         if (!dollar_type) {
             return res.status(404).json({
@@ -102,5 +114,18 @@ export default {
         res.status(200).json({
             "Message": "Tipo de dolar eliminado correctamente."
         })
+    },
+
+    promedio_dolares: async (req: express.Request, res: express.Response) => {
+        const dolars = await DolarModel.find()
+        let valor = 0
+
+        dolars.forEach(source => {
+            valor += source.valor_compra!
+        })
+
+        if(dolars.length == 0) { res.status(200).send(`${0}`) }
+
+        res.status(200).send(`${(valor/dolars.length).toFixed(2)}`)
     }
 }
