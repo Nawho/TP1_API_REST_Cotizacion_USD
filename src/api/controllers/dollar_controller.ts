@@ -27,7 +27,7 @@ export default {
     },
 
     post_dollar: async (req: express.Request, res: express.Response) => {
-        const new_dollar_data = req.body.nuevo_dolar
+        const new_dollar_data = req.body
         const fields = ["tipo", "valor_compra", "valor_venta"]
 
         if (!new_dollar_data) {

@@ -2,7 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import { dolar_router } from "./routes/dolar"
 import swaggerUi from 'swagger-ui-express'
-import * as swaggerDocument from './swagger.json'
+import { swaggerDoc as swaggerDocument } from './swagger'
 
 require("dotenv").config()
 
