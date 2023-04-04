@@ -13,11 +13,11 @@ app
     .use(express.json())
     .use('/api_docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use('/', dolar_router)
+    .listen(port, () => {
+        console.log(`API on http://localhost:${port}/`)
+        console.log(`Documentation on http://localhost:${port}/api_docs`)
+    })
 
-app.listen(port, () => {
-    console.log(`Listening on http://localhost:${port}/`)
-    console.log(`Documentation can be found on http://localhost:${port}/api_docs`)
-})
-
-mongoose.set("strictQuery", false)
-mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING!)
+mongoose
+    .set("strictQuery", false)
+    .connect(process.env.MONGO_DB_CONNECTION_STRING!)

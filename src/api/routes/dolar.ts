@@ -1,15 +1,3 @@
-/**
-*   @swagger
-*   components:
-*       schemas:
-*           dolar:
-*               type: object
-*               properties: 
-*                   id: 
-*                       type: string
-*                       description: leto
-*/
-
 import express from "express"
 import dolar_controller from "../controllers/dollar_controller"
 
@@ -24,4 +12,3 @@ dolar_router.put('/', dolar_controller.put_dollar)
 dolar_router.get('/promedio_dolares', dolar_controller.promedio_dolares)
 dolar_router.get('/:tipo', dolar_controller.get_dollar)
 dolar_router.patch('/:tipo/save_values', dolar_controller.save_values)
-    
