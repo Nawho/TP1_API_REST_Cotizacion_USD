@@ -15,10 +15,3 @@ diagrama de clases asociado (se evaluará la progresión de commits de cada alum
 **Fechas**
 **05/04**: Entrega 1 - sin persistencia, los objetos se almacenarán en una colección.
 **13/04**: Evaluación oral en clase a cada grupo.
-
-
-**Integrantes**
-Franco Malitto y Nahuel Serra
-
-**Repositorio**
-[Nuestro repositorio](https://github.com/Nawho/TP1_API_REST_Cotizacion_USD)
