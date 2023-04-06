@@ -325,12 +325,7 @@ export const swaggerDoc = {
                 ],
                 "responses": {
                     "200": {
-                        "description": "Operación exitosa",
-                        "content": {
-                            "application/json": {
-                                "schema": dolar
-                            }
-                        }
+                        "description": "Operación exitosa.",
                     },
                     "400": {
                         "description": "Tipo de dólar no especificado."
