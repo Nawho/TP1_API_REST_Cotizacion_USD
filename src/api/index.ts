@@ -1,6 +1,6 @@
 import express from "express"
 import mongoose from "mongoose"
-import { dolar_router } from "./routes/dolar"
+import { dolares_router } from "./routes/dolar"
 import swaggerUi from 'swagger-ui-express'
 import { swaggerDoc as swaggerDocument } from './swagger'
 
@@ -11,11 +11,12 @@ const port: number = 38406
 
 app
     .use(express.json())
-    .use('/api_docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-    .use('/', dolar_router)
+    .get('/', (_, res: express.Response) => { res.redirect('/docs') })
+    .use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+    .use('/dolares', dolares_router)
     .listen(port, () => {
         console.log(`API on http://localhost:${port}/`)
-        console.log(`Documentation on http://localhost:${port}/api_docs`)
+        console.log(`Documentation on http://localhost:${port}/docs`)
     })
 
 mongoose

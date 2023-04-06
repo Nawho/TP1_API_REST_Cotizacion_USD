@@ -1,5 +1,5 @@
 export class RegistroDiario {
-    fecha!: Date
+    fecha!: string
     valor_compra!: number
     valor_venta!: number
 }

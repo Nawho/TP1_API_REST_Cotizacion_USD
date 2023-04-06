@@ -1,7 +1,7 @@
 {
   "name": "tp1-api-rest-cotizacion-usd",
   "version": "1.0.0",
-  "description": "Una API para obtener la cotiazación acutal de los 12 dólares en Argentina, así como su valor histórico y un cron job que actualizará la base de datos cada 1h.",
+  "description": "Una API para obtener la cotiazación acutal de los 12 tipos de dólares en Argentina, así como su valor histórico y un cron job que actualizará la base de datos cada 1h.",
   "main": "index.js",
   "scripts": {
     "api": "npx nodemon ./src/api/index.ts",

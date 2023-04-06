@@ -4,6 +4,7 @@ import { RegistroDiario } from "./RegistroDiario"
 @modelOptions({
     schemaOptions: { collection: 'dolares' },
 })
+
 class Dolar {
     @prop({ required: true })
     tipo!: string // Blue, bolsa, turista, etc...
@@ -12,7 +13,7 @@ class Dolar {
     nombre_completo!: string
 
     @prop()
-    valor_compra?: number
+    valor_compra!: number
 
     @prop()
     valor_venta?: number
@@ -21,7 +22,7 @@ class Dolar {
     ult_actualizacion?: string
 
     @prop()
-    db_ult_actualizacion!: string
+    db_ult_actualizacion?: string
 
     @prop()
     historico?: RegistroDiario[]
