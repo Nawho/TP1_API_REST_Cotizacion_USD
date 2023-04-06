@@ -19,3 +19,6 @@ diagrama de clases asociado (se evaluará la progresión de commits de cada alum
 
 **Integrantes**
 Franco Malitto y Nahuel Serra
+
+**Repositorio**
+[Nuestro repositorio](https://github.com/Nawho/TP1_API_REST_Cotizacion_USD)
