@@ -150,12 +150,3 @@ async function scrapePage() {
 
 
 scrapePage()
-
-
-/*    const dolarAPI = process.env.DOLAR_API_URL!
-      console.log(dolarAPI)
-      const res = await fetch(dolarAPI, {
-          method: "GET"
-      })
-      const jsonRes = await res.json()
-      console.log(jsonRes) */

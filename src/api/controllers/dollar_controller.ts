@@ -27,6 +27,13 @@ export default {
 
 
         const dolar = await DolarModel.findOne({ tipo: dollar_type })
+
+        if (!dolar) {
+            return res.status(404).json({
+                "Message": "Error: No se encontró el tipo de dolar."
+            })
+        }
+
         //@ts-ignore
         const { _id, __v, ...public_data } = dolar._doc
 
@@ -94,6 +101,43 @@ export default {
         res.status(200).json({ "Dólar acualizado": response_dollar })
     },
 
+    delete_dollar: async (req: express.Request, res: express.Response) => {
+        const dollar_type = req.body.tipo
+        if (!dollar_type) {
+            return res.status(400).json({
+                "Message": "Error: No se especificó el tipo de dolar."
+            })
+        }
+
+        const dollar = await DolarModel.findOne({ tipo: dollar_type })
+        if (!dollar) {
+            return res.status(404).json({
+                "Message": `Error: No se encontró el dolar ${dollar_type}.`
+            })
+        }
+
+        await DolarModel.findByIdAndRemove(dollar._id, {})
+        res.status(200).json({
+            "Message": `${dollar.nombre_completo} eliminado correctamente.`
+        })
+    },
+
+    promedio_dolares: async (req: express.Request, res: express.Response) => {
+        const dolars = await DolarModel.find()
+        let valor = 0
+
+        dolars.forEach(source => {
+            valor += source.valor_compra!
+        })
+
+        if (dolars.length === 0) {
+            return res.status(200).json({ "Message": "No se encontraron dólares para hacer el promedio." })
+        }
+        res.status(200).json({
+            "Data": `${(valor / dolars.length).toFixed(2)}`
+        })
+    },
+
     save_to_historico: async (req: express.Request, res: express.Response) => {
         const tipo = req.body.tipo
         const target = await DolarModel.findOne({ tipo: req.body.tipo })
@@ -133,41 +177,4 @@ export default {
 
         res.status(200).json({ "Message": `Histórico del dólar ${tipo} actualizado exitosamente.` })
     },
-
-    delete_dollar: async (req: express.Request, res: express.Response) => {
-        const dollar_type = req.body.tipo
-        if (!dollar_type) {
-            return res.status(400).json({
-                "Message": "Error: No se especificó el tipo de dolar."
-            })
-        }
-
-        const dollar = await DolarModel.findOne({ tipo: dollar_type })
-        if (!dollar) {
-            return res.status(404).json({
-                "Message": `Error: No se encontró el dolar ${dollar_type}.`
-            })
-        }
-
-        await DolarModel.findByIdAndRemove(dollar._id, {})
-        res.status(200).json({
-            "Message": `${dollar.nombre_completo} eliminado correctamente.`
-        })
-    },
-
-    promedio_dolares: async (req: express.Request, res: express.Response) => {
-        const dolars = await DolarModel.find()
-        let valor = 0
-
-        dolars.forEach(source => {
-            valor += source.valor_compra!
-        })
-
-        if (dolars.length === 0) {
-            return res.status(200).json({ "Message": "No se encontraron dólares para hacer el promedio." })
-        }
-        res.status(200).json({
-            "Data": `${(valor / dolars.length).toFixed(2)}`
-        })
-    }
 }

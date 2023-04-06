@@ -244,6 +244,12 @@ export const swaggerDoc = {
                 "responses": {
                     "201": {
                         "description": "Nuevo tipo de dolar creado correctamente."
+                    },
+                    "400": {
+                        "description": "Datos faltantes o incorrectos."
+                    },
+                    "409": {
+                        "description": "Ya existe el tipo de dólar que se intenta crear."
                     }
                 }
             },
@@ -318,9 +324,6 @@ export const swaggerDoc = {
                     }
                 ],
                 "responses": {
-                    "404": {
-                        "description": "Dolar no encontrado."
-                    },
                     "200": {
                         "description": "Operación exitosa",
                         "content": {
@@ -328,7 +331,13 @@ export const swaggerDoc = {
                                 "schema": dolar
                             }
                         }
-                    }
+                    },
+                    "400": {
+                        "description": "Tipo de dólar no especificado."
+                    },
+                    "404": {
+                        "description": "Dolar no encontrado."
+                    },
                 }
             }
         },
@@ -348,9 +357,6 @@ export const swaggerDoc = {
                     }
                 ],
                 "responses": {
-                    "404": {
-                        "description": "Dolar no encontrado."
-                    },
                     "200": {
                         "description": "Objeto del dolar.",
                         "content": {
@@ -358,7 +364,13 @@ export const swaggerDoc = {
                                 "schema": dolar
                             }
                         }
-                    }
+                    },
+                    "400": {
+                        "description": "Tipo de dólar no especificado."
+                    },
+                    "404": {
+                        "description": "Dolar no encontrado."
+                    },
                 }
             }
         },
@@ -392,12 +404,15 @@ export const swaggerDoc = {
                 "requestBody": save_to_historico_body,
                 "parameters": save_to_historico_req_params,
                 "responses": {
+                    "200": {
+                        "description": "Datos del dolar guardados correctamente.",
+                    },
+                    "400": {
+                        "description": "Datos faltantes o incorrectos."
+                    },
                     "404": {
                         "description": "No se ha encontrado el dolar."
                     },
-                    "200": {
-                        "description": "Datos del dolar guardados correctamente.",
-                    }
                 }
             }
         }
