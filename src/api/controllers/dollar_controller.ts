@@ -95,6 +95,7 @@ export default {
             return res.status(404).json({ "Message": `${req.body.tipo} no encontrado` })
         }
 
+        //@ts-ignore
         const put_dolar = await DolarModel.findOneAndReplace({ _id: target._id }, req.body, { new: true })
         //@ts-ignore
         const { __v, _id, ...response_dollar } = put_dolar._doc;

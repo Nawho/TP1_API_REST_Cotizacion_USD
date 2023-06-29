@@ -14,11 +14,13 @@ app
     .get('/', (_, res: express.Response) => { res.redirect('/docs') })
     .use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     .use('/dolares', dolares_router)
+
     .listen(port, () => {
-        console.log(`API on http://localhost:${port}/`)
+        console.log(`API on http://localhost:${port}/dolares`)
         console.log(`Documentation on http://localhost:${port}/docs`)
     })
 
+
 mongoose
     .set("strictQuery", false)
-    .connect(process.env.MONGO_DB_CONNECTION_STRING!)
+    .connect(process.env.MONGO_DB_CONNECTION_STRING!).then(() => { console.log("DB Connected!") })
